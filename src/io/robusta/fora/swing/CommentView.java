@@ -65,6 +65,17 @@ public class CommentView extends JPanel {
 			}
 		});
 		buttonLike.setIcon(new ImageIcon(CommentView.class.getResource("/io/robusta/fora/swing/images/like.png")));
+		
+		// resize the image
+		ImageIcon likeIcon = new ImageIcon(
+				CommentView.class
+						.getResource("/io/robusta/fora/swing/images/like.png"));
+
+		Image likeImage = likeIcon.getImage();
+		likeImage = likeImage.getScaledInstance(40, 40, Image.SCALE_FAST);
+		likeIcon.setImage(likeImage);
+		buttonLike.setIcon(likeIcon);
+		
 		add(buttonLike);
 		
 		JButton buttonDislike = new JButton("");
