@@ -2,6 +2,7 @@ package io.robusta.fora.swing;
 
 import io.robusta.fora.ForaDataSource;
 import io.robusta.fora.domain.Comment;
+import io.robusta.fora.domain.Subject;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -49,7 +50,11 @@ public class SwingApp {
 		CommentController controller = new CommentController(model, commentView);
 		commentView.setController(controller);
 		
-		frame.getContentPane().add(commentView, BorderLayout.CENTER);
+//		frame.getContentPane().add(commentView, BorderLayout.CENTER);
+		
+		Subject subject = ForaDataSource.getInstance().getSubjects().get(0);
+		SubjectView subjectView = new SubjectView(subject );
+		frame.getContentPane().add(subjectView, BorderLayout.CENTER);
 	}
 
 }
