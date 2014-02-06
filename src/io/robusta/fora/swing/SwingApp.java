@@ -42,7 +42,9 @@ public class SwingApp {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(200, 200, 600, 400);
+		frame.setTitle("Fora");
+		frame.setSize(600, 400);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Boilerplate

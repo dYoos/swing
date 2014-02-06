@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -56,9 +57,9 @@ public class CommentView extends JPanel {
 	public void initView() {
 
 		// layout
-		hBox = new BoxLayout(this, BoxLayout.X_AXIS);
+		hBox = new BoxLayout(this, BoxLayout.LINE_AXIS);
 		setLayout(hBox);
-		
+
 		// comment
 		commentPane = new JTextPane();
 		commentPane.setPreferredSize(new Dimension(250, 100));
@@ -70,7 +71,7 @@ public class CommentView extends JPanel {
 		// user
 		// display user name under the user's avatar using GridLayout 2x1
 		JPanel userPanel = new JPanel(new GridLayout(2, 1, 0, 0));
-		userPanel.setPreferredSize(new Dimension(90, 90));
+		userPanel.setPreferredSize(new Dimension(80, 80));
 
 		JLabel lblUserAvatar = new JLabel();
 		lblUserAvatar.setIcon(new ImageIcon(CommentView.class
@@ -81,7 +82,6 @@ public class CommentView extends JPanel {
 		userPanel.add(lblUserName);
 		add(userPanel);
 
-		// add(Box.createHorizontalStrut(10));
 		// like button
 		JButton buttonLike = new JButton("");
 		buttonLike.addActionListener(new ActionListener() {
@@ -93,16 +93,9 @@ public class CommentView extends JPanel {
 		buttonLike.setIcon(new ImageIcon(CommentView.class
 				.getResource("/io/robusta/fora/swing/images/like.png")));
 
-		// resize the image
-		ImageIcon likeIcon = new ImageIcon(
-				CommentView.class
-						.getResource("/io/robusta/fora/swing/images/like.png"));
-
-		Image likeImage = likeIcon.getImage();
-		likeImage = likeImage.getScaledInstance(40, 40, Image.SCALE_FAST);
-		likeIcon.setImage(likeImage);
-		buttonLike.setIcon(likeIcon);
-
+		// resize the icon
+		String iconURL = "/io/robusta/fora/swing/images/like.png";
+		buttonLike.setIcon(resizeIcon(iconURL, 40, 40));
 		add(buttonLike);
 
 		// dislike button
@@ -123,6 +116,16 @@ public class CommentView extends JPanel {
 				.getResource("/io/robusta/fora/swing/images/flag.jpg")));
 		add(buttonFlag);
 
+	}
+
+	private Icon resizeIcon(String iconURL, int widht, int height) {
+		ImageIcon icon = new ImageIcon(CommentView.class.getResource(iconURL));
+
+		Image likeImage = icon.getImage();
+		likeImage = likeImage
+				.getScaledInstance(widht, height, Image.SCALE_FAST);
+		icon.setImage(likeImage);
+		return icon;
 	}
 
 	public void setController(CommentController controller) {
