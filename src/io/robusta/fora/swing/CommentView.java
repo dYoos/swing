@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -45,34 +47,41 @@ public class CommentView extends JPanel {
 		initView();
 	}
 
-	JTextPane commentPane;
+	private JTextPane commentPane;
+	private BoxLayout hBox;
 
 	/**
 	 * Create the panel.
 	 */
 	public void initView() {
 
+		// layout
+		hBox = new BoxLayout(this, BoxLayout.X_AXIS);
+		setLayout(hBox);
+		
+		// comment
 		commentPane = new JTextPane();
-		commentPane.setPreferredSize(new Dimension(300, 50));
+		commentPane.setPreferredSize(new Dimension(250, 100));
 		commentPane.setBackground(UIManager.getColor("Label.background"));
 		commentPane.setEditable(false);
 		commentPane.setText(model.getContent());
-		// commentPane.setText("JLabel lblUserAvatar = new JLabel() lblUserAvatar.setIcon(new ImageIcon(CommentView.class.getResource");
 		add(new JScrollPane(commentPane));
 
 		// user
 		// display user name under the user's avatar using GridLayout 2x1
 		JPanel userPanel = new JPanel(new GridLayout(2, 1, 0, 0));
-		JLabel lblUserName = new JLabel(String.valueOf(model.getUser()));
-		lblUserName.setVerticalAlignment(SwingConstants.TOP);
+		userPanel.setPreferredSize(new Dimension(90, 90));
+
 		JLabel lblUserAvatar = new JLabel();
 		lblUserAvatar.setIcon(new ImageIcon(CommentView.class
 				.getResource("/io/robusta/fora/swing/images/user.png")));
 		userPanel.add(lblUserAvatar);
+
+		JLabel lblUserName = new JLabel(String.valueOf(model.getUser()));
 		userPanel.add(lblUserName);
-		userPanel.setPreferredSize(new Dimension(100, 100));
 		add(userPanel);
 
+		// add(Box.createHorizontalStrut(10));
 		// like button
 		JButton buttonLike = new JButton("");
 		buttonLike.addActionListener(new ActionListener() {
