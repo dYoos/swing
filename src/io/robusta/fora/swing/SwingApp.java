@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 public class SwingApp {
 
-	private JFrame frame;
+	private static JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -48,16 +48,22 @@ public class SwingApp {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Boilerplate
-		Comment model = ForaDataSource.getInstance().getComments().get(0);
-		CommentView commentView = new CommentView(model);
-		CommentController controller = new CommentController(model, commentView);
-		commentView.setController(controller);
+//		Comment model = ForaDataSource.getInstance().getComments().get(0);
+//		CommentView commentView = new CommentView(model);
+//		CommentController controller = new CommentController(model, commentView);
+//		commentView.setController(controller);
 
 //		 frame.getContentPane().add(commentView, BorderLayout.CENTER);
 
 		Subject subject = ForaDataSource.getInstance().getSubjects().get(0);
 		SubjectView subjectView = new SubjectView(subject);
 		frame.getContentPane().add(subjectView, BorderLayout.CENTER);
+		resize();
+	}
+
+	public static void resize() {
+		frame.pack();
+		
 	}
 
 }

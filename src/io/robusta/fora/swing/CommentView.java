@@ -63,7 +63,7 @@ public class CommentView extends JPanel {
 		// comment
 		commentPane = new JTextPane();
 		commentPane.setPreferredSize(new Dimension(250, 100));
-		commentPane.setBackground(UIManager.getColor("Label.background"));
+//		commentPane.setBackground(UIManager.getColor("Label.background"));
 		commentPane.setEditable(false);
 		commentPane.setText(model.getContent());
 		add(new JScrollPane(commentPane));
@@ -95,7 +95,7 @@ public class CommentView extends JPanel {
 
 		// resize the icon
 		String iconURL = "/io/robusta/fora/swing/images/like.png";
-		buttonLike.setIcon(resizeIcon(iconURL, 40, 40));
+		buttonLike.setIcon(Tools.resizeIcon(iconURL, 40, 40));
 		add(buttonLike);
 
 		// dislike button
@@ -118,15 +118,6 @@ public class CommentView extends JPanel {
 
 	}
 
-	private Icon resizeIcon(String iconURL, int widht, int height) {
-		ImageIcon icon = new ImageIcon(CommentView.class.getResource(iconURL));
-
-		Image likeImage = icon.getImage();
-		likeImage = likeImage
-				.getScaledInstance(widht, height, Image.SCALE_FAST);
-		icon.setImage(likeImage);
-		return icon;
-	}
 
 	public void setController(CommentController controller) {
 		this.controller = controller;

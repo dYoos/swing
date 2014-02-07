@@ -1,6 +1,7 @@
 package io.robusta.fora.swing;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 
 import io.robusta.fora.ForaDataSource;
@@ -12,11 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-/*
- * TODO Récupérer et afficher le sujet « Pirelli »
- Récupérer et afficher la liste de ses commentaires
- */
 
 public class SubjectView extends JPanel {
 
@@ -32,10 +28,15 @@ public class SubjectView extends JPanel {
 	private JTextPane titlePane;
 	private JTextPane contentPane;
 	private JPanel commentsList;
-
 	private JButton addComment;
-
 	private JButton showComment;
+	private JPanel addCommentPanel;
+	private boolean visibleComments;
+
+	private JTextArea entreComment;
+
+	private JCheckBox anonymous;
+
 
 	public SubjectView() {
 		this.model = ForaDataSource.getInstance().getSubjects().get(0);
@@ -43,6 +44,7 @@ public class SubjectView extends JPanel {
 	}
 
 	public SubjectView(Subject subject) {
+		super();
 		this.model = subject;
 		initView();
 	}
@@ -96,17 +98,11 @@ public class SubjectView extends JPanel {
 
 		// resize the icon
 		String iconURL = "/io/robusta/fora/swing/images/like.png";
-		buttonLike.setIcon(resizeIcon(iconURL, 40, 40));
+		buttonLike.setIcon(Tools.resizeIcon(iconURL, 40, 40));
 		actionsPanel.add(buttonLike);
 
 		// dislike button
 		JButton buttonDislike = new JButton("");
-		// buttonDislike.addActionListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent e) {
-		// controller.dislike();
-		// updateContentColor();
-		// }
-		// });
 		buttonDislike.setIcon(new ImageIcon(CommentView.class
 				.getResource("/io/robusta/fora/swing/images/dislike.png")));
 		actionsPanel.add(buttonDislike);
@@ -117,14 +113,33 @@ public class SubjectView extends JPanel {
 				.getResource("/io/robusta/fora/swing/images/flag.jpg")));
 		actionsPanel.add(buttonFlag);
 
-		// add and show comments buttons
-		addComment = new JButton("add");
+		addComment = new JButton("add comment");
+		addComment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int response = JOptionPane.showConfirmDialog(null, addCommentPanel, "Ajouter un commentaire",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if (response == JOptionPane.OK_OPTION ) {
+					controller.addComment("string");
+				}
+			}
+		});
+
+		// show/hide comments
+		visibleComments = false;
 		showComment = new JButton("Show comments");
 		showComment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				add(commentsList);
-				showComment.setText("Hide comments");
+				if (!visibleComments) {
+					add((commentsList));
+					showComment.setText("Hide comments");
+					visibleComments = true;
+				} else {
+					remove(commentsList);
+					showComment.setText("Show comments");
+					visibleComments = false;
+				}
 				revalidate();
+				SwingApp.resize();
 			}
 		});
 		actionsPanel.add(addComment);
@@ -144,17 +159,17 @@ public class SubjectView extends JPanel {
 			commentView.setController(controller);
 			commentsList.add(commentView);
 		}
-		 //add(commentsList);
-	}
-
-	private Icon resizeIcon(String iconURL, int widht, int height) {
-		ImageIcon icon = new ImageIcon(CommentView.class.getResource(iconURL));
-
-		Image likeImage = icon.getImage();
-		likeImage = likeImage
-				.getScaledInstance(widht, height, Image.SCALE_FAST);
-		icon.setImage(likeImage);
-		return icon;
+		
+		/*
+		 *  add comment panel
+		 */
+		addCommentPanel =  new JPanel();
+		entreComment = new JTextArea(5, 30);
+		anonymous = new JCheckBox("Anonymous", true);
+		
+		addCommentPanel.add(entreComment);
+		addCommentPanel.add(anonymous);
+		
 	}
 
 }

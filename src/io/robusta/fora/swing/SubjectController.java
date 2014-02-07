@@ -14,4 +14,11 @@ public class SubjectController {
 		this.view = view;
 	}
 
+
+
+	public void addComment(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
