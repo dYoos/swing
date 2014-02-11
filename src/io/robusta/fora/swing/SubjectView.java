@@ -114,15 +114,15 @@ public class SubjectView extends JPanel {
 		actionsPanel.add(buttonFlag);
 
 		addComment = new JButton("add comment");
-		addComment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int response = JOptionPane.showConfirmDialog(null, addCommentPanel, "Ajouter un commentaire",
-						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-				if (response == JOptionPane.OK_OPTION ) {
-					controller.addComment("string");
-				}
-			}
-		});
+//		addComment.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				int response = JOptionPane.showConfirmDialog(null, addCommentPanel, "Ajouter un commentaire",
+//						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//				if (response == JOptionPane.OK_OPTION ) {
+//					controller.addComment("string");
+//				}
+//			}
+//		});
 
 		// show/hide comments
 		visibleComments = false;
