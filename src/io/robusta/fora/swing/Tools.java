@@ -24,5 +24,4 @@ public class Tools {
         return icon; 
     } 
   
-} 
->>>>>>> cf6474a1b61440cc7a66592fc1292f8570d944be
+}
